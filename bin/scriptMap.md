@@ -1,5 +1,5 @@
 backup                  -> stoneBackup            ++ fail if no todeClient -- how do I tell?
-createStone             -> createStone            ++ createGsDevKitImage; 
+[]createStone             -> createStone            ++ createGsDevKitImage; 
                                                      create stone; add info to $GS_CLIENT/....descriptions
                         -> createGsDevKitImage    ++ downloadGemstone; clone GsDevKit_gemstone; 
                                                      downloadPharo (gemstone/pharo) install gsdevkit command line
