@@ -22,12 +22,12 @@ installPharo            -> downloadPharo          ++ download bits of desired ve
                                                      dir (-d $GS_HOME/gemstone/pharo)
 installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
 installTodeProjectStone -> createStone -p projectName
-installTodeStone        -> installTode
+[]installTodeStone        -> installTode
 osPrereqs               -> osPrereqs
 performTodeCommand
 pharo
 restoreFromBackup       -> stoneRestore
-shFunctions             -> shFunctions
+[x]shFunctions             -> shFunctions
 startNetldi             -> startNetldi
 startStatmonitor        -> startStatmonitor
 startStone              -> startStone
