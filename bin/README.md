@@ -20,7 +20,7 @@ installGci              ->                        ++ implement as $GS_CLIENT/bin
 installGemStone         -> downloadGemStone       ++ download bits; $GS_CLIENT/bin/installGci
 installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
                                                      dir (-d $GS_HOME/gemstone/pharo)
-installServer           == createTodeStone or createStone
+installServer           
 installTodeProjectStone
 installTodeStone
 osPrereqs               -> osPrereqs
@@ -36,7 +36,7 @@ stones                  -> stones
 stopNetldi              -> stopNetldi
 stopStone               -> stopStone
 tode
-todeClient              -> client                  ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
+todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
 updateTodeImage
 upgradeGemStone         -> upgradeStone
 
