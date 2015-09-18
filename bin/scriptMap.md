@@ -22,7 +22,7 @@ installPharo            -> downloadPharo          ++ download bits of desired ve
                                                      dir (-d $GS_HOME/gemstone/pharo)
 installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
 installTodeProjectStone -> createStone -p projectName
-installTodeStone        -> createStone -t
+installTodeStone        -> installTode
 osPrereqs               -> osPrereqs
 performTodeCommand
 pharo
@@ -35,7 +35,7 @@ stoneNewExtent          -> newStoneExtent
 stones                  -> stones
 stopNetldi              -> stopNetldi
 stopStone               -> stopStone
-tode                    -> gsdevkit
+tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
 todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
 updateTodeImage         -> updateTodeClient, updateGemToolsClient, updateJadeClient
 upgradeGemStone         -> upgradeStone

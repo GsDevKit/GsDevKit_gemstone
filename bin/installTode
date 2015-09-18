@@ -53,10 +53,17 @@ popd >& /dev/null
 
 # install tode
 if [ "${GS_TODE}x" = "x" ] ; then
-  # clone tode module
+  # clone tode module - needed at end of tODE install
   $GS_GEMSTONE/bin/cloneTode
   source ${GS_HOME}/bin/defGsDevKit.env
 fi
-$GS_GEMSTONE/bin/gsDevKit installTode $stoneName
+if [ "${GS_TODE_CLIENT}x" = "x" ] ; then
+  # clone todeClient module - use todeClient to install tODE
+  $GS_GEMSTONE/bin/cloneTodeClient
+  source ${GS_HOME}/bin/defGsDevKit.env
+fi
+
+# install tODE using headless tode image
+$GS_TODE_CLIENT/bin/tode installTode $stoneName
 
 echo "...finished $(basename $0)"
