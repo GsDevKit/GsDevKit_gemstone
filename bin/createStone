@@ -9,7 +9,9 @@ echo "================="
 
 usage() {
   cat <<HELP
-USAGE: $(basename $0) [-h] [-f] [-g] [-n] [-s <snapshot-file-path>] [-t] <stone-name> <gemstone-version>
+USAGE: $(basename $0) [-h] [-f] [-g] [-n] [-s <snapshot-file-path>] [-t] 
+                      [-p <tode-project-name> [-b <backup-name>]] 
+                      <stone-name> <gemstone-version>
 
 Create a new stone with the given stone name. Do not install tODE. Start stone
 and netldi unless -n is specified.
@@ -27,6 +29,9 @@ before creation.
 OPTIONS
   -h
      display help
+  -b <backup-name>
+     Used in concert with the -p option, make a backup of the stone of the given name
+     after the project is installed
   -f
      Force creation of new stone, by deleting 
      $GS_HOME/gemstone/stone/<stone-name> directory if it exists
@@ -34,6 +39,9 @@ OPTIONS
      Do not install tODE in stone ... use initial extent unaltered
   -n
      No startStone, no startNetldi.
+  -p <tode-project-name>
+     install <tode-project-name> into stone. tODE must already be installed via
+     -t or -s options.
   -s <snapshot-file-path> 
      path to snapshot file used to create stone.
   -t
@@ -64,12 +72,15 @@ snapshotFileArg=""
 noRestartArg=""
 force=""
 installTode="true"
-while getopts "fhns:" OPT ; do
+todeProjectName=""
+while getopts "b:fhnp:s:" OPT ; do
   case "$OPT" in
     h) usage; exit 0;;
+    b) backupName="${OPTARG}";;
     f) force="true";; 
     g) installTode="false";;
     n) noRestartArg=" -n ";;
+    p) todeProjectName="${OPTARG}";;
     s) snapshotFileArg=" -s ${OPTARG} ";;
     t) installTode="true";;
     *) usage; exit 1;;
@@ -109,6 +120,13 @@ fi
 
 if [ "$installTode" = "true" ] ; then
   $GS_GEMSTONE/bin/installTode $stoneName
+fi
+
+if [ "$todeProjectName" != "" ] ; then
+  $GS_GEMSTONE/bin/tode todeIt $stoneName << EOF
+project load ${todeProjectName}
+bu backup ${backupName}.dbf
+EOF
 fi
 
 echo "...finished $(basename $0)"

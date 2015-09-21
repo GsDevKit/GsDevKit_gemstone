@@ -7,12 +7,12 @@ createGemToolsClient    -> createGemToolsClient   ++ clone GsDevKit_gemtools;
                                                      downloadGemStone >> $GS_CLIENT/bin/createClient [create client] 
 createJadeClient        -> createJadeClient       ++ clone GsDevKit_jade; 
                                                      downloadGemStone >> $GS_CLIENT/bin/createClient [create client]
-createTodeImage         -> createTodeClient       ++ clone GsDevKit_tode; clone GsDevKit_todeClient; 
+[]createTodeImage         -> createTodeClient       ++ clone GsDevKit_tode; clone GsDevKit_todeClient; 
                                                      downLoadGemStone >> $GS_CLIENT/bin/createClient;
                                                                          [downloadPharo (todeClient/pharo) install tode into pharo
                                                                           cp gci libraries]
-createTodeProjectStone  -> createTodeProjectStone
-createTodeStone         -> createTodeStone        ++ createTodeClientImage; createStone
+[]createTodeProjectStone  -> createTodeProjectStone
+[]createTodeStone         -> createTodeStone        ++ createTodeClientImage; createStone
 deleteStone             -> deleteStone            ++ createGsDevKitImage; call gsdevkitimage deleteStone
 installClient           == createTodeClient
 installGci              ->                        ++ implement as $GS_CLIENT/bin/createClient (each flavor) and call from 
@@ -21,7 +21,7 @@ installGemStone         -> downloadGemStone       ++ download bits; see installG
 installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
                                                      dir (-d $GS_HOME/gemstone/pharo)
 installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
-installTodeProjectStone -> createStone -p projectName
+[]installTodeProjectStone -> createStone -p projectName
 []installTodeStone        -> installTode
 osPrereqs               -> osPrereqs
 performTodeCommand
