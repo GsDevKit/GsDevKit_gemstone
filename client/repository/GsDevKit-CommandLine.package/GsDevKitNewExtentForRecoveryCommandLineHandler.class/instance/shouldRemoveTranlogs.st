@@ -1,3 +1,0 @@
-testing
-shouldRemoveTranlogs
-	^ false
