@@ -1,3 +1,13 @@
+--------------------------------------
+	renamed:    bin/osPrereqs -> bin/installOsPrereqs
+	renamed:    bin/gsDevKitCommandLine -> bin/private/gsDevKitCommandLine
+	renamed:    bin/gsDevKitTodeCommandLine -> bin/private/gsDevKitTodeCommandLine
+	renamed:    bin/installClientGciLibraries -> bin/private/installClientGciLibraries
+	new file:   bin/products
+	new file:   bin/startStatmonitor
+	new file:   bin/stones
+	new file:   bin/upgradeStone
+--------------------------------------
 []backup                  -> stoneBackup            ++ fail if no todeClient -- how do I tell?
 []createStone             -> createStone            ++ createGsDevKitImage; 
                                                      create stone; add info to $GS_CLIENT/....descriptions
