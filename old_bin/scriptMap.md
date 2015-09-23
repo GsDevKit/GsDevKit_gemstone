@@ -42,7 +42,7 @@ createJadeClient        -> createJadeClient       ++ clone GsDevKit_jade;
 []startStatmonitor        -> startStatmonitor
 []startStone              -> startStone
 []stoneNewExtent          -> newExtent
-stones                  -> stones
+[]stones                  -> stones
 []stopNetldi              -> stopNetldi
 []stopStone               -> stopStone
 []tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
