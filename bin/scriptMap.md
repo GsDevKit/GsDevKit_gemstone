@@ -1,4 +1,4 @@
-backup                  -> stoneBackup            ++ fail if no todeClient -- how do I tell?
+[]backup                  -> stoneBackup            ++ fail if no todeClient -- how do I tell?
 []createStone             -> createStone            ++ createGsDevKitImage; 
                                                      create stone; add info to $GS_CLIENT/....descriptions
                         -> createGsDevKitImage    ++ downloadGemstone; clone GsDevKit_gemstone; 
@@ -13,14 +13,14 @@ createJadeClient        -> createJadeClient       ++ clone GsDevKit_jade;
                                                                           cp gci libraries]
 []createTodeProjectStone  -> createTodeProjectStone
 []createTodeStone         -> createTodeStone        ++ createTodeClientImage; createStone
-deleteStone             -> deleteStone            ++ createGsDevKitImage; call gsdevkitimage deleteStone
-installClient           == createTodeClient
-installGci              ->                        ++ implement as $GS_CLIENT/bin/createClient (each flavor) and call from 
+[]deleteStone             -> deleteStone            ++ createGsDevKitImage; call gsdevkitimage deleteStone
+[]installClient           == createTodeClient
+[]installGci              ->                        ++ implement as $GS_CLIENT/bin/createClient (each flavor) and call from 
                                                      downloadGemStone script
-installGemStone         -> downloadGemStone       ++ download bits; see installGci
-installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
+[]installGemStone         -> downloadGemStone       ++ download bits; see installGci
+[]installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
                                                      dir (-d $GS_HOME/gemstone/pharo)
-installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
+[]installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
 []installTodeProjectStone -> createStone -p projectName
 []installTodeStone        -> installTode
 osPrereqs               -> osPrereqs
@@ -30,13 +30,13 @@ restoreFromBackup       -> stoneRestore
 [x]shFunctions             -> shFunctions
 startNetldi             -> startNetldi
 startStatmonitor        -> startStatmonitor
-startStone              -> startStone
-stoneNewExtent          -> newExtent
+[]startStone              -> startStone
+[]stoneNewExtent          -> newExtent
 stones                  -> stones
 stopNetldi              -> stopNetldi
-stopStone               -> stopStone
-tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
-todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
+[]stopStone               -> stopStone
+[]tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
+[]todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
 updateTodeImage         -> updateTodeClient, updateGemToolsClient, updateJadeClient
 upgradeGemStone         -> upgradeStone
 
