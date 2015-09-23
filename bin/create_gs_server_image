@@ -10,10 +10,10 @@ echo "================="
 usage() {
   cat <<HELP
 USAGE: $(basename $0) [-h] [-f] [-v Pharo3.0 | Pharo4.0 ] 
-                      -d <full-path-to-directory>
+                      -d <full-path-to-directory> gsDevKitCommand|todeCommand
 
-Create a gsServer image. Used for standard GsDevKit tasks that do not require
-tODE to be installed.
+Create a gsDevKit image of the given type (gsDevKitCommand or todeCommand). 
+Used for standard GsDevKit tasks that do not require tODE to be installed.
 
 If the gsServer image already exists, the installation is skipped
 unless the -f option is specified.
@@ -60,6 +60,12 @@ while getopts ":fhv:" OPT ; do
 done
 shift $(($OPTIND - 1))
 
+if [ $# -ne 1 ]; then
+  usage; exit 1
+fi
+imageType=$1
+shift 1
+
 if [ "${directoryPath}x" = "x" ] ; then
   echo "required argument -d missing"
   usage; exit 1
@@ -79,23 +85,40 @@ if [ -e $directoryPath/gsServer.image ] ; then
   fi
 fi
 
-gs_serverLoadPath=$GS_SHARED_TODE/sys/default/pharo/gsServerLoad.st
-if [ -e $GS_SHARED_TODE/sys/local/pharo/gsServerLoad.st ] ; then
-  gs_serverLoadPath=$GS_SHARED_TODE/sys/local/pharo/gsServerLoad.st
+case "$imageType" in
+  gsDevKitCommand)
+    loadScript=gsDevKitCommandLoad.st
+    initialImageName=Pharo.image
+    imageName=gsDevKitCommand.image
+  ;;
+  todeCommand)
+    if [ ! -e ${GS_GS_SERVER_PHARO}/gsDevKitCommand.image] ; then
+      $GS_GS_SERVER/bin/create_gs_server_image -d $GS_GS_SERVER_PHARO gsDevKitCommand
+    fi
+    loadScript=todeCommandLoad.st
+    initialImageName=gsServerDevKit.image
+    imageName=todeCommand.image
+  ;;
+  *) usage; exit 1;;
+esac
+
+gs_serverLoadPath=$GS_SHARED_TODE/sys/default/pharo/$loadScript
+if [ -e $GS_SHARED_TODE/sys/local/pharo/$loadScript ] ; then
+  gs_serverLoadPath=$GS_SHARED_TODE/sys/local/pharo/$loadScript
 fi
 
-echo "${message} todeClient${postFix} image using $todeLoadPath"
+echo "${message} $imageName image using $gs_serverLoadPath"
 
 if [ "${force}" = "true" ] ; then
-  $directoryPath/pharo $directoryPath/todeClient${postFix}.image save todeClientTmp
+  $directoryPath/pharo $directoryPath/$imageName save gsDevKitTmp
 else
-  $directoryPath/pharo $directoryPath/Pharo.image save todeClientTmp
+  $directoryPath/pharo $directoryPath/$initialImageName save gsDevKitTmp
 fi
 
-$directoryPath/pharo $directoryPath/todeClientTmp.image st --quit --save $todeLoadPath
+$directoryPath/pharo $directoryPath/gsDevKitTmp.image st --quit --save $gs_serverLoadPath
 
-$directoryPath/pharo $directoryPath/todeClientTmp.image save todeClient${postFix}
-rm -f $directoryPath/todeClientTmp.*
+$directoryPath/pharo $directoryPath/gsDevKitTmp.image save $imageName
+rm -f $directoryPath/gsDevKitTmp.*
 
 echo
 echo "...finished $(basename $0)"
