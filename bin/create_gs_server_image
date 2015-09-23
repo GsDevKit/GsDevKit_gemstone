@@ -9,12 +9,13 @@ echo "================="
 
 usage() {
   cat <<HELP
-USAGE: $(basename $0) [-h] [-f] [-v Pharo3.0 | Pharo4.0 ]
+USAGE: $(basename $0) [-h] [-f] [-v Pharo3.0 | Pharo4.0 ] 
+                      -d <full-path-to-directory>
 
-Create a gs_server client. Used for standard GsDevKit tasks that do not require
+Create a gsServer image. Used for standard GsDevKit tasks that do not require
 tODE to be installed.
 
-If the gs_server client image already exists, the installation is skipped
+If the gsServer image already exists, the installation is skipped
 unless the -f option is specified.
 
 OPTIONS
@@ -24,17 +25,16 @@ OPTIONS
      <full-path-to-directory> specifies the directory into which the chosen
      pharo version is downloaded
   -f
-     Force gs_server client installation, whether or not the image
+     Force gsServer image installation, whether or not the image
      already exists.
   -v Pharo3.0 | Pharo4.0
      Choose the version of Pharo to use for the client. Default is Pharo3.0.
 
 EXAMPLES
   $(basename $0) -h
-  $(basename $0) -p _0 todeDev
-  $(basename $0) -f todeDev
-  $(basename $0) -v Pharo3.0 todeDev
-  $(basename $0)
+  $(basename $0) -d \$GS_GS_SERVER_PHARO
+  $(basename $0) -v Pharo3.0 -d \$GS_GS_SERVER_PHARO
+  $(basename $0) -f -d \$GS_GS_SERVER_PHARO
 
 HELP
 }
@@ -48,37 +48,40 @@ source ${GS_HOME}/bin/defGsDevKit.env
 
 force=""
 version="Pharo3.0"
+directoryPath=""
 while getopts ":fhv:" OPT ; do
   case "$OPT" in
     h) usage; exit 0;;
     f) force="true";;
+    d) directoryPath="${OPTARG}";;
     v) version="${OPTARG}";;
     *) usage; exit 1;;
   esac
 done
 shift $(($OPTIND - 1))
 
-directoryPath=$GS_GS_SERVER
+if [ "${directoryPath}x" = "x" ] ; then
+  echo "required argument -d missing"
+  usage; exit 1
+fi
 
-if [ ! -d "$directoryPath" ] ; then
-  mkdir $directoryPath
-  cp -r $GS_TODE_CLIENT/template/* $directoryPath/
+if [ ! -e "${directoryPath}/pharo" ] ; then 
   $GS_HOME/bin/private/downloadSmalltalkClient -v $version -d $directoryPath
 fi
 
 message="create"
-if [ -e $directoryPath/todeClient${postFix}.image ] ; then
+if [ -e $directoryPath/gsServer.image ] ; then
   if [ "${force}x" = "x" ] ; then
-    echo "todeClient image already created, use -f to force update"
+    echo "gsServer image already created, use -f to force update"
     exit 0
   else
     message="update"
   fi
 fi
 
-todeLoadPath=$GS_SHARED_TODE/sys/default/pharo/todeLoad.st
-if [ -e $GS_SHARED_TODE/sys/local/pharo/todeLoad.st ] ; then
-  todeLoadPath=$GS_SHARED_TODE/sys/local/pharo/todeLoad.st
+gs_serverLoadPath=$GS_SHARED_TODE/sys/default/pharo/gsServerLoad.st
+if [ -e $GS_SHARED_TODE/sys/local/pharo/gsServerLoad.st ] ; then
+  gs_serverLoadPath=$GS_SHARED_TODE/sys/local/pharo/gsServerLoad.st
 fi
 
 echo "${message} todeClient${postFix} image using $todeLoadPath"
