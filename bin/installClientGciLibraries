@@ -29,12 +29,13 @@ if [ "${GS_HOME}x" = "x" ] ; then
   echo "the GS_HOME environment variable needs to be defined"; exit 1
 fi
 
-if [ "${GS_GS_CLIENT_DEV}x" -ne "x" ] ; then
-   ${GS_GS_CLIENT_DEV}/bin/installClientGciLibraries $*
+if [ $# -ne 1 ]; then
+  usage; exit 1
 fi
+vers="$1"
 
-if [ "${GS_GS_SERVER}x" -ne "x" ];
-   ${GS_GS_SERVER}/bin/installClientGciLibraries $*
+if [ -e ${GS_GS_SERVER_PHARO}/pharo ] ; then
+  $GS_HOME/bin/private/installGci -d ${GS_GS_SERVER_PHARO} -t pharo $vers
 fi
 
 echo "...finished $(basename $0)"
