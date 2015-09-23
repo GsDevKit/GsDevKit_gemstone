@@ -31,7 +31,7 @@ restoreFromBackup       -> stoneRestore
 startNetldi             -> startNetldi
 startStatmonitor        -> startStatmonitor
 startStone              -> startStone
-stoneNewExtent          -> newStoneExtent
+stoneNewExtent          -> newExtent
 stones                  -> stones
 stopNetldi              -> stopNetldi
 stopStone               -> stopStone
