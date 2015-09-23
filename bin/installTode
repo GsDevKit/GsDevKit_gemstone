@@ -34,7 +34,7 @@ if [ "${GS_GEMSTONE}x" = "x" ] ; then
   exit 1
 fi
 
-source ${GS_HOME}/bin/shFunctions
+source ${GS_HOME}/bin/private/shFunctions
 getOpts_help $@
 
 if [ $# -ne 1 ]; then
@@ -42,29 +42,29 @@ if [ $# -ne 1 ]; then
 fi
 stoneName=$1
 
-$GS_GEMSTONE/bin/startStone $stoneName
+$GS_HOME/bin/startStone $stoneName
 
 echo "Install tODE on stone: $stoneName"
 
 # set up stone environment
-stonePath=$GS_HOME/gemstone/stones/$stoneName
+stonePath=$GS_GS_SERVER_STONES/$stoneName
 pushd $stonePath >& /dev/null
-source $stonePath/stone.env
+  source $stonePath/stone.env
 popd >& /dev/null
 
 # install tode
 if [ "${GS_TODE}x" = "x" ] ; then
   # clone tode module - needed at end of tODE install
-  $GS_GEMSTONE/bin/cloneTode
+  $GS_HOME/bin/private/cloneTode
   source ${GS_HOME}/bin/defGsDevKit.env
 fi
 if [ "${GS_TODE_CLIENT}x" = "x" ] ; then
   # clone todeClient module - use todeClient to install tODE
-  $GS_GEMSTONE/bin/cloneTodeClient
+  $GS_HOME/bin/private/cloneTodeClient
   source ${GS_HOME}/bin/defGsDevKit.env
 fi
 
 # install tODE using headless tode image
-$GS_TODE_CLIENT/bin/tode installTode $stoneName
+$GS_HOME/bin/gsDevKitTodeCommandLine installTode $stoneName
 
 echo "...finished $(basename $0)"
