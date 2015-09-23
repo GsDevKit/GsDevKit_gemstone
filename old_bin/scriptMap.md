@@ -23,22 +23,22 @@ createJadeClient        -> createJadeClient       ++ clone GsDevKit_jade;
 []installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
 []installTodeProjectStone -> createStone -p projectName
 []installTodeStone        -> installTode
-osPrereqs               -> osPrereqs
-performTodeCommand
-pharo
-restoreFromBackup       -> stoneRestore
+[]osPrereqs               -> osPrereqs
+[]performTodeCommand
+[]pharo                   -> not used
+[]restoreFromBackup       -> stoneRestore
 [x]shFunctions             -> shFunctions
-startNetldi             -> startNetldi
-startStatmonitor        -> startStatmonitor
+[]startNetldi             -> startNetldi
+[]startStatmonitor        -> startStatmonitor
 []startStone              -> startStone
 []stoneNewExtent          -> newExtent
 stones                  -> stones
-stopNetldi              -> stopNetldi
+[]stopNetldi              -> stopNetldi
 []stopStone               -> stopStone
 []tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
 []todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
 updateTodeImage         -> updateTodeClient, updateGemToolsClient, updateJadeClient
-upgradeGemStone         -> upgradeStone
+[]upgradeGemStone         -> upgradeStone
 
 NOTE:
   $GS_HOME/bin/createClient could call $GS_CLIENT/bin/createClient, but we have a chicken and egg situation with who decides which client to download... could have a default setting ,,, alternatively create\*Client has the advantage of being explict about which client is desired ,,, also think about artifacts that indicate things have already been created ... also think about fact that I may want multiple tode clients ....
