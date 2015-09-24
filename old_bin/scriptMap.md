@@ -9,7 +9,7 @@
 	new file:   bin/upgradeStone
 --------------------------------------
 []backup                  -> stoneBackup            ++ fail if no todeClient -- how do I tell?
-[]createStone             -> createStone            ++ createGsDevKitImage; 
+[x]createStone             -> createStone            ++ createGsDevKitImage; 
                                                      create stone; add info to $GS_CLIENT/....descriptions
                         -> createGsDevKitImage    ++ downloadGemstone; clone GsDevKit_gemstone; 
                                                      downloadPharo (gemstone/pharo) install gsdevkit command line
@@ -22,30 +22,30 @@ createJadeClient        -> createJadeClient       ++ clone GsDevKit_jade;
                                                                          [downloadPharo (todeClient/pharo) install tode into pharo
                                                                           cp gci libraries]
 []createTodeProjectStone  -> createTodeProjectStone
-[]createTodeStone         -> createTodeStone        ++ createTodeClientImage; createStone
-[]deleteStone             -> deleteStone            ++ createGsDevKitImage; call gsdevkitimage deleteStone
+[x]createTodeStone         -> createTodeStone        ++ createTodeClientImage; createStone
+x[]deleteStone             -> deleteStone            ++ createGsDevKitImage; call gsdevkitimage deleteStone
 []installClient           == createTodeClient
 []installGci              ->                        ++ implement as $GS_CLIENT/bin/createClient (each flavor) and call from 
                                                      downloadGemStone script
-[]installGemStone         -> downloadGemStone       ++ download bits; see installGci
-[]installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
+[x]installGemStone         -> downloadGemStone       ++ download bits; see installGci
+[x]installPharo            -> downloadPharo          ++ download bits of desired version (-v 3.0) into target 
                                                      dir (-d $GS_HOME/gemstone/pharo)
-[]installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
+[x]installServer           ->                        ++ document as $GS_HOME/bin/cloneGemstone; createStone; createTodeClient         
 []installTodeProjectStone -> createStone -p projectName
-[]installTodeStone        -> installTode
-[]osPrereqs               -> osPrereqs
+[x]installTodeStone        -> installTode
+[x]osPrereqs               -> osPrereqs
 []performTodeCommand
-[]pharo                   -> not used
+[x]pharo                   -> not used
 []restoreFromBackup       -> stoneRestore
 [x]shFunctions             -> shFunctions
-[]startNetldi             -> startNetldi
+[x]startNetldi             -> startNetldi
 []startStatmonitor        -> startStatmonitor
-[]startStone              -> startStone
-[]stoneNewExtent          -> newExtent
-[]stones                  -> stones
-[]stopNetldi              -> stopNetldi
-[]stopStone               -> stopStone
-[]tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
+[x]startStone              -> startStone
+[x]stoneNewExtent          -> newExtent
+[x]stones                  -> stones
+[x]stopNetldi              -> stopNetldi
+[x]stopStone               -> stopStone
+[x]tode                    -> tode                   ++ headless tode image in $GS_TODE_CLIENT/bin
 []todeClient              -> startClient w/args     ++ call $GS_CLIENT/bin/createClient --- which must call back correctly
 updateTodeImage         -> updateTodeClient, updateGemToolsClient, updateJadeClient
 []upgradeGemStone         -> upgradeStone
