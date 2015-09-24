@@ -60,6 +60,6 @@ if [ "${GS_TODE}x" = "x" ] ; then
 fi
 
 # install tODE using gsDevKitTodeCommandLine
-$GS_HOME/bin/gsDevKitTodeCommandLine installTode $stoneName
+$GS_HOME/bin/private/gsDevKitTodeCommandLine installTode $stoneName
 
 echo "...finished $(basename $0)"
