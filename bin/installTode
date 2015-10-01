@@ -29,9 +29,9 @@ if [ "${GS_HOME}x" = "x" ] ; then
   echo "the GS_HOME environment variable needs to be defined"; exit 1
 fi
 source ${GS_HOME}/bin/defGsDevKit.env
-if [ "${GS_GS_SERVER}x" = "x" ] ; then
+if [ "${GS_SERVER}x" = "x" ] ; then
   echo "the GsDevKit_server project has not been installed correctly or the"
-  echo "GS_GS_SERVER environment variable has not been defined"
+  echo "GS_SERVER environment variable has not been defined"
   exit 1
 fi
 
@@ -48,7 +48,7 @@ $GS_HOME/bin/startStone $stoneName
 echo "Install tODE on stone: $stoneName"
 
 # set up stone environment
-stonePath=$GS_GS_SERVER_STONES/$stoneName
+stonePath=$GS_SERVER_STONES/$stoneName
 pushd $stonePath >& /dev/null
   source $stonePath/stone.env
 popd >& /dev/null
