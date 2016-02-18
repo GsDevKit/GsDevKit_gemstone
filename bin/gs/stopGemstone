@@ -7,6 +7,8 @@ echo "================="
 echo "   GsDevKit GemStone script: $(basename $0) $*"
 echo "================="
 
+set -e # exit on error
+
 if [ -s $GEMSTONE/seaside/etc/gemstone.secret ]; then
       . $GEMSTONE/seaside/etc/gemstone.secret
 else
