@@ -1,20 +1,18 @@
 #!/bin/bash
 #=========================================================================
-# Copyright (c) 2014, 2015 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
+# Copyright (c) 2014, 2015, 2016 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
+#
+#   MIT license: https://github.com/GsDevKit/GsDevKit_gs_server/blob/master/license.txt
 #=========================================================================
 
-echo "================="
-echo "   GsDevKit GemStone script: $(basename $0) $*"
-echo "================="
-
-set -e # exit on error
+theArgs="$*"
+source ${GS_HOME}/bin/private/shFeedback
+start_banner
 
 if [ -s $GEMSTONE/seaside/etc/gemstone.secret ]; then
       . $GEMSTONE/seaside/etc/gemstone.secret
 else
-      echo "Missing password file $GEMSTONE/seaside/etc/gemstone.secret"
-      exit 1
+      exit_1_banner "Missing password file $GEMSTONE/seaside/etc/gemstone.secret"
 fi
 
 $GEMSTONE/bin/stopstone -i $GEMSTONE_NAME DataCurator $GEMSTONE_CURATOR_PASS
-
