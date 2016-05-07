@@ -1,7 +1,8 @@
 #! /bin/bash
-
 #=========================================================================
-# Copyright (c) 2014 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
+# Copyright (c) 2014, 2015, 2016 GemTalk Systems, LLC <dhenrich@gemtalksystems.com>.
+#
+#   MIT license: https://github.com/GsDevKit/GsDevKit_gs_server/blob/master/license.txt
 #
 # Name - todeWindowsClient 
 #
