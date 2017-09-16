@@ -6,11 +6,11 @@
 #=========================================================================
 
 theArgs="$*"
-source ${GS_HOME}/bin/private/shFeedback
+source "${GS_HOME}/bin/private/shFeedback"
 start_banner
 
-if [ -s $GEMSTONE/seaside/etc/gemstone.secret ]; then
-      . $GEMSTONE/seaside/etc/gemstone.secret
+if [ -s "$GEMSTONE/seaside/etc/gemstone.secret" ]; then
+      . "$GEMSTONE/seaside/etc/gemstone.secret"
 else
       exit_1_banner "Missing password file $GEMSTONE/seaside/etc/gemstone.secret"
 fi
@@ -18,5 +18,5 @@ fi
 echo "Starting stone: $GEMSTONE_NAME"
 
 
-$GS_HOME/server/bin/gs/stopGemstone
-$GEMSTONE/bin/startstone $* $GEMSTONE_NAME -z $GEMSTONE_SYS_CONF -l $GEMSTONE_LOGDIR/$GEMSTONE_NAME.log
+"$GS_HOME/server/bin/gs/stopGemstone"
+"$GEMSTONE/bin/startstone" $* $GEMSTONE_NAME -z "$GEMSTONE_SYS_CONF" -l "$GEMSTONE_LOGDIR/$GEMSTONE_NAME.log"

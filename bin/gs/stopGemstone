@@ -6,11 +6,11 @@
 #=========================================================================
 
 theArgs="$*"
-source ${GS_HOME}/bin/private/shFeedback
+source "${GS_HOME}/bin/private/shFeedback"
 start_banner
 
-if [ -s $GEMSTONE/seaside/etc/gemstone.secret ]; then
-      . $GEMSTONE/seaside/etc/gemstone.secret
+if [ -s "$GEMSTONE/seaside/etc/gemstone.secret" ]; then
+      . "$GEMSTONE/seaside/etc/gemstone.secret"
 else
       exit_1_banner "Missing password file $GEMSTONE/seaside/etc/gemstone.secret"
 fi
@@ -19,6 +19,6 @@ fi
 # Therefore, the most reliable way to stop the stone is to grab the user and password either from the .topazini or the tODE description file.
 # To avoid storing this info in yet another place, and since currently this is the only place where we must extract the user and pass,
 # we simply extract it from .topazini using a perl script. This could be replaced by other means too
-$GEMSTONE/bin/stopstone -i $GEMSTONE_NAME `perl -nle"print $& if m{(?<=user )[^ ]+}" $GEMSTONE_STONE_DIR/.topazini` `perl -nle"print $& if m{(?<=password )[^ ]+}" $GEMSTONE_STONE_DIR/.topazini`
+"$GEMSTONE/bin/stopstone" -i $GEMSTONE_NAME `perl -nle"print $& if m{(?<=user )[^ ]+}" "$GEMSTONE_STONE_DIR/.topazini"` `perl -nle"print $& if m{(?<=password )[^ ]+}" "$GEMSTONE_STONE_DIR/.topazini"`
 
 
