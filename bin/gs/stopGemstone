@@ -15,10 +15,32 @@ else
       exit_1_banner "Missing password file $GEMSTONE/seaside/etc/gemstone.secret"
 fi
 
-# The user may have specified a different Gemstone user than DataCurator in createStone script. In addition, it could have changed the password of DataCurator.
-# Therefore, the most reliable way to stop the stone is to grab the user and password either from the .topazini or the tODE description file.
-# To avoid storing this info in yet another place, and since currently this is the only place where we must extract the user and pass,
-# we simply extract it from .topazini using a perl script. This could be replaced by other means too
-$GEMSTONE/bin/stopstone -i $GEMSTONE_NAME `perl -nle"print $& if m{(?<=user )[^ ]+}" $GEMSTONE_STONE_DIR/.topazini` `perl -nle"print $& if m{(?<=password )[^ ]+}" $GEMSTONE_STONE_DIR/.topazini`
+# The user may have specified a different Gemstone user than DataCurator in
+# createStone script. In addition, it could have changed the password of 
+# DataCurator. Therefore, the most reliable way to stop the stone is to grab 
+# the user and password either from the .topazini or the tODE description file.
+# To avoid storing this info in yet another place, and since currently this is 
+# the only place where we must extract the user and pass,we simply extract it 
+# from .topazini using a perl script. This could be replaced by other means too.
+
+# see https://github.com/GsDevKit/GsDevKit_home/issues/253, as the perl script 
+#		needs bullet proofing
+file=`mktemp`
+grep "^[^#;]" < $GEMSTONE_STONE_DIR/.topazini > $file
+user=`perl -nle"print $& if m{(?<=user )[^ ]+}" $file`
+password=`perl -nle"print $& if m{(?<=password )[^ ]+}" $file`
+
+# in stopstone, exit status 1 information and exit status 2 is warning ... 
+#		so not worthy of errors (https://github.com/GsDevKit/GsDevKit_home/issues/255)
+trap - ERR
+$GEMSTONE/bin/stopstone -i $GEMSTONE_NAME $user $password
+trap 'error ${LINENO}' ERR
+status=$?
+if [ "$status" = "0" ] | [ "$status" = "1" ] | [ "$status" = "2" ] ; then
+	# command line error
+	exit 0
+else
+	exit $status
+fi
 
 
