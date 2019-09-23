@@ -17,6 +17,5 @@ fi
 
 echo "Starting stone: $GEMSTONE_NAME"
 
-
 $GS_HOME/server/bin/gs/stopGemstone
 $GEMSTONE/bin/startstone $* $GEMSTONE_NAME -z $GEMSTONE_SYS_CONF -l $GEMSTONE_LOGDIR/$GEMSTONE_NAME.log
